@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Cosmic Light Mode */
+    --background: 255 252 245;
+    --foreground: 230 25% 12%;
+
+    --card: 255 250 240;
+    --card-foreground: 230 25% 12%;
+
+    --popover: 255 250 240;
+    --popover-foreground: 230 25% 12%;
+
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 249 57% 66%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 250 40% 95%;
+    --muted-foreground: 230 15% 45%;
+
+    --accent: 43 100% 64%;
+    --accent-foreground: 230 25% 12%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 250 30% 88%;
+    --input: 250 30% 88%;
+    --ring: 262 83% 58%;
+
+    --radius: 1rem;
+
+    /* Cosmic gradients */
+    --gradient-cosmic: linear-gradient(135deg, hsl(230, 45%, 92%), hsl(262, 70%, 90%), hsl(280, 60%, 94%));
+    --gradient-circle: linear-gradient(135deg, hsl(220, 80%, 65%), hsl(262, 83%, 58%), hsl(43, 100%, 64%));
+    --gradient-glow: radial-gradient(circle at 50% 50%, hsla(262, 83%, 58%, 0.3), transparent 70%);
+    
+    /* Shadows */
+    --shadow-cosmic: 0 20px 60px -15px hsla(262, 83%, 58%, 0.4);
+    --shadow-glow: 0 0 60px hsla(262, 83%, 58%, 0.5);
+    
+    /* Animations */
+    --transition-cosmic: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    /* Deep Space Dark Mode */
+    --background: 222 47% 6%;
+    --foreground: 0 0% 98%;
+
+    --card: 230 35% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 230 35% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 249 57% 66%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 230 30% 18%;
+    --muted-foreground: 230 10% 65%;
+
+    --accent: 43 100% 64%;
+    --accent-foreground: 230 47% 6%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 230 25% 22%;
+    --input: 230 25% 22%;
+    --ring: 262 83% 58%;
+
+    /* Deep space gradients */
+    --gradient-cosmic: linear-gradient(135deg, hsl(222, 47%, 6%), hsl(250, 40%, 12%), hsl(262, 45%, 18%));
+    --gradient-circle: linear-gradient(135deg, hsl(220, 80%, 45%), hsl(262, 83%, 58%), hsl(43, 100%, 64%));
+    --gradient-glow: radial-gradient(circle at 50% 50%, hsla(262, 83%, 58%, 0.25), transparent 70%);
+    
+    /* Shadows */
+    --shadow-cosmic: 0 20px 60px -15px hsla(262, 83%, 58%, 0.6);
+    --shadow-glow: 0 0 80px hsla(262, 83%, 58%, 0.7);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-serif antialiased;
+    font-family: 'Cinzel', Georgia, serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', Georgia, serif;
+    letter-spacing: 0.05em;
+  }
+}
+
+@layer utilities {
+  .cosmic-gradient {
+    background: var(--gradient-cosmic);
+  }
+
+  .circle-gradient {
+    background: var(--gradient-circle);
+  }
+
+  .glow-effect {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .cosmic-shadow {
+    box-shadow: var(--shadow-cosmic);
+  }
+
+  .glass-effect {
+    backdrop-filter: blur(40px);
+    background: hsla(var(--background), 0.6);
+    border: 1px solid hsla(var(--border), 0.3);
+  }
+
+  .transition-cosmic {
+    transition: var(--transition-cosmic);
+  }
+
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  /* Cosmic animations */
+  @keyframes cosmic-pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+  }
+
+  @keyframes cosmic-rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+
+  .animate-cosmic-pulse {
+    animation: cosmic-pulse 2s ease-in-out infinite;
+  }
+
+  .animate-cosmic-rotate {
+    animation: cosmic-rotate 20s linear infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Particle effects */
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: hsla(var(--accent), 0.6);
+    animation: float 8s ease-in-out infinite;
+  }
+}

@@ -1,0 +1,208 @@
+# ============================================
+# ZENITH ASSISTANT - Git Ignore Rules
+# ============================================
+
+# ============================================
+# PYTHON
+# ============================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ============================================
+# MODELS & DATA (LARGE FILES)
+# ============================================
+# Wake word training data
+wake_word_training/data/
+wake_word_training/wake_samples/
+wake_word_training/negative_samples/
+
+# Trained models (keep only the final ones)
+models/*.pth
+models/*.pkl
+models/behavior/
+models/piper_voices/*.onnx
+models/piper_voices/*.onnx.json
+models/training_curves.png
+
+# FAISS indexes (will add later)
+models/embeddings/
+embeddings/
+
+# Ollama models (stored elsewhere)
+*.gguf
+*.bin
+
+# ============================================
+# LOGS & TEMP FILES
+# ============================================
+logs/
+*.log
+temp/
+tmp/
+*.tmp
+
+# Audio temp files
+*.wav
+*.mp3
+*.flac
+temp_audio/
+
+# ============================================
+# DATABASES (will add later)
+# ============================================
+*.db
+*.sqlite
+*.sqlite3
+database/
+
+# ============================================
+# IDE & EDITORS
+# ============================================
+# VS Code
+.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# ============================================
+# OS FILES
+# ============================================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ============================================
+# CHROME & SELENIUM
+# ============================================
+# WebDriver cache
+.wdm/
+
+# Chrome user data (profiles are huge)
+chrome_data/
+user_data/
+
+# ============================================
+# PIPER TTS
+# ============================================
+piper/*.exe
+piper/*.dll
+
+# ============================================
+# SECRETS & CONFIG (IMPORTANT!)
+# ============================================
+# API keys and secrets
+secrets.yaml
+.env
+config/secrets.yaml
+
+# Personal config overrides
+config/local_settings.yaml
+config/*.local.yaml
+
+# ============================================
+# THIRD-PARTY
+# ============================================
+# Node modules (if using frontend later)
+node_modules/
+package-lock.json
+
+# ============================================
+# ZENITH-SPECIFIC
+# ============================================
+# User behavior data (private)
+models/behavior/user_behavior.pkl
+models/behavior/user_preferences.json
+
+# Screenshots (for vision testing)
+screenshots/
+*.png
+*.jpg
+*.jpeg
+
+# Benchmark results
+benchmarks/
+
+# ============================================
+# KEEP THESE FILES (FORCE ADD IF NEEDED)
+# ============================================
+# Keep small essential models
+!models/custom_wake_word.pth
+
+# Keep example configs
+!config/settings.yaml.example

@@ -1,0 +1,214 @@
+# ============================================
+# ZENITH ASSISTANT - Configuration v5.2
+# Edge-TTS Upgrade + Barge-in Fix
+# ============================================
+
+# ============================================
+# AUDIO SETTINGS
+# ============================================
+audio:
+  sample_rate: 16000
+  chunk_size: 512
+  channels: 1
+  silence_frames: 20
+  min_speech_length: 0.5
+  use_ffmpeg: true
+  continuous_mode: true
+  max_continuous_time: 300
+  
+  # ✅ BARGE-IN SETTINGS (UPGRADED)
+  barge_in_enabled: true
+  barge_in_force_stop: true  # ← NEW: Force stop TTS immediately
+  barge_in_clear_queue: true  # ← NEW: Clear any queued speech
+  
+  noise_reduction: true
+  audio_boost: 0.7
+  microphone_name: "main micro (Realtek(R) Audio)"
+
+# ============================================
+# WAKE WORD SETTINGS - CUSTOM MODEL
+# ============================================
+wake_word:
+  enabled: true
+  keyword: "hey zenith"
+  model_path: "models/custom_wake_word.pth"
+  threshold: 0.7  # Detection confidence (0.5-0.9)
+  window_size: 1.5  # Audio window in seconds
+
+# ============================================
+# SPEECH RECOGNITION (WHISPER)
+# ============================================
+speech:
+  model: "small"
+  language: "en"
+  device: "auto"
+  compute_type: "float16"
+  beam_size: 5
+  vad_filter: true
+  best_of: 5
+  gpu_settings:
+    enable_gpu: true
+    max_gpu_memory: "3GB"
+    fallback_to_cpu: true
+    dynamic_switching: true
+
+# ============================================
+# TEXT-TO-SPEECH (EDGE-TTS) - ⭐ UPGRADED!
+# ============================================
+tts:
+  enabled: true
+  engine: "edge"  # Changed from "piper" to "edge"
+  
+  # ===== EDGE-TTS SETTINGS (Microsoft Neural) =====
+  edge_voice: "en-US-GuyNeural"  # Deep male voice (Jarvis-like)
+  
+  # Voice customization
+  rate: "+10%"     # Speed: +10% faster for responsiveness
+                   # Range: -50% (slower) to +100% (2x speed)
+  
+  volume: "+0%"    # Volume: Normal
+                   # Range: -50% (quieter) to +50% (louder)
+  
+  pitch: "-5Hz"    # Pitch: Slightly deeper for authority
+                   # Range: -50Hz (deeper) to +50Hz (higher)
+  
+  # ===== INTERRUPT BEHAVIOR (BARGE-IN) =====
+  force_stop_on_interrupt: true  # Stop immediately when wake word detected
+  clear_queue_on_interrupt: true  # Don't resume after interrupt
+  interrupt_fade_ms: 0  # No fade-out (instant stop)
+  
+  # ===== OTHER VOICES (REFERENCE ONLY) =====
+  # Uncomment to change voice:
+  # edge_voice: "en-US-JennyNeural"      # Natural female
+  # edge_voice: "en-IN-NeerjaNeural"     # Indian English female
+  # edge_voice: "en-IN-PrabhatNeural"    # Indian English male
+  # edge_voice: "en-US-AriaNeural"       # Friendly female
+  # edge_voice: "en-US-ChristopherNeural"  # Professional male
+  
+  # Legacy settings (keep for compatibility)
+  speed: 1.0
+  streaming: false
+  min_sentence_length: 10
+
+# ============================================
+# LLM SETTINGS (OLLAMA)
+# ============================================
+llm:
+  enabled: true
+  provider: "ollama"
+  base_url: "http://127.0.0.1:11434"
+  model: "phi3:mini"
+  temperature: 0.7
+  max_tokens: 500
+  streaming: true
+  max_history: 10
+  timeout: 30
+  
+  # ===== INTERRUPT BEHAVIOR (BARGE-IN) =====
+  allow_interrupt: true  # Allow stopping LLM generation
+  interrupt_on_wake_word: true  # Stop generating when wake word detected
+  
+  system_prompt: >
+    You are Zenith, a helpful AI assistant. You can control the computer, 
+    open applications, search the web, and answer questions. 
+    Be concise and helpful. Keep responses under 3 sentences unless asked for detail.
+
+# ============================================
+# BEHAVIOR / LEARNING SETTINGS
+# ============================================
+behavior:
+  enabled: true
+  model_path: "models/behavior/user_behavior.pkl"
+  preferences_path: "models/behavior/user_preferences.json"
+  max_history: 1000
+  learning_rate: 0.01
+  save_interval: 10
+
+# ============================================
+# 🔧 TOOLS CONFIGURATION
+# ============================================
+tools:
+  # ------------------------------------
+  # BROWSER SETTINGS - Chrome Profile
+  # ------------------------------------
+  browser:
+    default: "chrome"
+    headless: false
+    window_size: "1920,1080"
+    user_data_dir: "C:\\Users\\praharsh\\AppData\\Local\\Google\\Chrome\\User Data"
+    profile_directory: "Profile 1"
+  
+  # ------------------------------------
+  # SPOTIFY SETTINGS - ⭐ TYPING FIX
+  # ------------------------------------
+  spotify:
+    desktop_paths:
+      - "C:\\Users\\{username}\\AppData\\Roaming\\Spotify\\Spotify.exe"
+      - "C:\\Users\\{username}\\AppData\\Local\\Microsoft\\WindowsApps\\Spotify.exe"
+      - "C:\\Program Files\\Spotify\\Spotify.exe"
+    search_provider: "youtube"
+    auto_open: true
+    default_device: null
+    
+    # ✅ TYPING SETTINGS (FIX SEARCH BAR)
+    typing_delay: 0.05  # 50ms between each character (was instant)
+    search_delay: 0.3   # Wait 300ms after typing before Enter
+    focus_retry_count: 3  # Retry window focus 3 times
+    focus_retry_delay: 0.5  # Wait 500ms between retries
+  
+  # ------------------------------------
+  # FILE CONTROL SETTINGS
+  # ------------------------------------
+  files:
+    search_locations:
+      - "C:\\Users\\{username}\\Downloads"
+      - "C:\\Users\\{username}\\Documents"
+      - "C:\\Users\\{username}\\Desktop"
+    max_search_depth: 3
+    max_results: 10
+  
+  # ------------------------------------
+  # WHATSAPP SETTINGS - ⭐ FULL AUTOMATION
+  # ------------------------------------
+  whatsapp:
+    # Method 1: Chrome App (current - limited)
+    chrome_app_path: "C:\\Users\\praharsh\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Chrome Apps\\WhatsApp Web.lnk"
+    
+    # Method 2: Selenium (full control - will implement)
+    use_selenium: true  # ← NEW: Use Selenium for full automation
+    whatsapp_web_url: "https://web.whatsapp.com"
+    
+    # Timing settings
+    default_wait_time: 15  # Wait for QR code scan
+    typing_delay: 0.03  # 30ms per character
+    search_delay: 1.0   # Wait 1s after typing contact name
+    message_delay: 0.5  # Wait 500ms before sending
+    
+    # Behavior
+    tab_close: false
+    country_code: "91"  # India
+    auto_close_after_send: false  # Keep WhatsApp open
+
+# ============================================
+# LOGGING SETTINGS
+# ============================================
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/zenith.log"
+  max_bytes: 10485760  # 10MB
+  backup_count: 5
+
+# ============================================
+# SYSTEM SETTINGS
+# ============================================
+system:
+  name: "Zenith"
+  version: "5.2"
+  greeting: "Yes boss"
+  shutdown_command: "stop"
+  
+  # ===== WAKE RESPONSE SETTINGS =====
+  wake_response_enabled: true
+  wake_response_text: "Yes boss"
+  wake_response_interrupt_current: true  # Stop current TTS for wake response
